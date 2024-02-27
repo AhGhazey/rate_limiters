@@ -5,7 +5,6 @@ all: mod fmt build
 
 mod:
 	go mod tidy
-	go mod vendor
 
 fmt:
 	@echo "Running go fmt.."

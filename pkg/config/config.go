@@ -3,11 +3,15 @@ package config
 import (
 	"fmt"
 	"github.com/spf13/viper"
+	"os"
 	"strings"
 	"time"
 )
 
-//go get github.com/spf13/viper
+// go get github.com/spf13/viper
+const (
+	DefaultAssetsPath = "/etc/config/rate_limiter"
+)
 
 type Config struct {
 	server *serverConfig
@@ -75,7 +79,11 @@ func (c *Config) RateLimiterTopic() string {
 	return c.topics.rateLimiterTopic
 }
 
-func LoadConfig(path string) (config *Config, err error) {
+func LoadConfig() (config *Config, err error) {
+	path := DefaultAssetsPath
+	if assetsPath := os.Getenv("ASSETS_PATH"); assetsPath != "" {
+		path = assetsPath
+	}
 	v := newDefaultConfig(path)
 	err = v.ReadInConfig()
 	if err != nil {

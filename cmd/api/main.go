@@ -14,7 +14,7 @@ import (
 func main() {
 	ctx := context.Background()
 	router := handler.Handler()
-	configuration, err := config.LoadConfig("assets")
+	configuration, err := config.LoadConfig()
 	if err != nil {
 		log.Fatal("Error loading config: ", err)
 	}
