@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  app:
+    container_name: rate_limiter
+    image: rate_limiter:latest
+    build:
+      context: ../
+    restart: on-failure
+    ports:
+      - '9090:9090'
+
+  redis:
+    container_name: redis
+    image: redis:${REDIS_VERSION}
+    restart: on-failure
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - rddata:/data
+    networks:
+      - rate_limiter
+
+  postgres:
+    container_name: postgres
+    image: postgres:${POSTGRES_VERSION}
+    restart: on-failure
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - rate_limiter
+
+volumes:
+  pgdata:
+  rddata:
+
+networks:
+  rate_limiter:
+    driver: bridge
