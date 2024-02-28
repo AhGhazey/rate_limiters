@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/ahghazey/rate_limiter/pkg/config"
 	"github.com/ahghazey/rate_limiter/pkg/http/handler"
+	"github.com/ahghazey/rate_limiter/pkg/limiters"
 	"github.com/ahghazey/rate_limiter/pkg/server"
 	"log"
 	"os"
@@ -13,7 +14,8 @@ import (
 
 func main() {
 	ctx := context.Background()
-	router := handler.Handler()
+	tokenBucketService := limiters.NewRateLimiterService()
+	router := handler.Handler(tokenBucketService)
 	configuration, err := config.LoadConfig()
 	if err != nil {
 		log.Fatal("Error loading config: ", err)
