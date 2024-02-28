@@ -1,9 +1,12 @@
 package limiters
 
-import "time"
+import (
+	"context"
+	"time"
+)
 
 type RateLimiter interface {
-	Check(userId, ip string) (*CheckResult, error)
+	Check(ctx context.Context, userId, ip string) (*CheckResult, error)
 }
 
 type CheckResult struct {

@@ -14,8 +14,9 @@ func TokenBucketRateLimiter(rateLimiter limiters.RateLimiter) func(http.Handler)
 			rateLimiter.(*limiters.TokenBucketRateLimiterService).ApplyConfig(config)
 			ip := r.Context().Value(common.IPKey).(string)
 			userID := r.Context().Value(common.UserIDKey).(string)
-			checkResult, err := rateLimiter.Check(userID, ip)
+			checkResult, err := rateLimiter.Check(r.Context(), userID, ip)
 			if err != nil {
+				w.WriteHeader(http.StatusInternalServerError)
 				return
 			}
 			w.Header().Set("Remaining-Requests", strconv.Itoa(checkResult.NumberOfRemainingRequests))

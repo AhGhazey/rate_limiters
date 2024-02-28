@@ -1,14 +1,14 @@
 version: '3.9'
 
 services:
-  app:
-    container_name: rate_limiter
-    image: rate_limiter:latest
-    build:
-      context: ../
-    restart: on-failure
-    ports:
-      - '9090:9090'
+#  app:
+#    container_name: rate_limiter
+#    image: rate_limiter:latest
+#    build:
+#      context: ../
+#    restart: on-failure
+#    ports:
+#      - '9090:9090'
 
   redis:
     container_name: redis
