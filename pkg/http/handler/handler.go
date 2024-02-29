@@ -14,7 +14,7 @@ func Handler(rateLimiter limiters.RateLimiter) http.Handler {
 	router := chi.NewRouter()
 	router.Use(middleware.TraceHeaders)
 	router.Use(middleware.Recovery)
-	router.Use(middleware.TokenBucketRateLimiter(rateLimiter))
+	//router.Use(middleware.TokenBucketRateLimiter(rateLimiter))
 	router.Get("/health", rest.Health())
 	return router
 }
