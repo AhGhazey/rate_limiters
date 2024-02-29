@@ -35,7 +35,6 @@ func main() {
 	err = httpServer.Start()
 	if err != nil {
 		log.Fatal("Error starting server: ", err)
-
 	}
 
 	c := make(chan os.Signal, 1)

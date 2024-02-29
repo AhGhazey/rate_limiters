@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  loadbalancer:
+    build: .
+    ports: 
+     - 80:80
+    networks:
+     - net
+
+  api01:
+    build: ../
+    networks:
+     - net
+
+  api02:
+    build: ../
+    networks:
+     - net
+
+networks:
+  net:
+

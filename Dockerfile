@@ -24,4 +24,7 @@ RUN mkdir -p /etc/config/rate_limiter
 COPY --from=builder /go/src/github/ahghazey/rate_limiter/rate_limiters .
 COPY --from=builder /go/src/github/ahghazey/rate_limiter/assets /etc/config/rate_limiter
 
+# Expose port 9090
+EXPOSE 9090
+
 ENTRYPOINT ["/bin/sh", "-c", "/go/app/rate_limiters"]
